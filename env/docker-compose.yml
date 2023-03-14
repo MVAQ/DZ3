@@ -1,0 +1,77 @@
+version: '3'
+services:
+  php-fpm:
+    container_name: php-fpm
+    image: pusachev/docker-php-fpm:8.1
+    restart: on-failure
+    ports:
+      - "9000:9000"
+    volumes:
+      - ./config/php/www.conf:/etc/php-fpm.d/www.conf
+      - ./config/php/xdebug.ini:/etc/php.d/zzz-xdebug.ini
+      - ./volumes/shared/php/composer:/root/.composer:delegated
+      - ./volumes/shared/php/composer:/home/www/.composer:delegated
+      - ../:/var/www:delegated
+    environment:
+      - PHP_VERSION=81
+      - XDEBUG_ENABLED=false
+    extra_hosts:
+      - host.docker.internal:host-gateway
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+      nofile:
+        soft: 65536
+        hard: 65536
+#  nginx:
+#    image: nginx:latest
+#    container_name: nginx
+#    restart: on-failure
+#    volumes:
+#      - ./config/nginx/conf/nginx.conf:/etc/nginx/nginx.conf
+#      - ./config/nginx/conf/magento.conf:/etc/nginx/magento.conf
+#      - ./config/nginx/conf/sites-enabled:/etc/nginx/conf.d/
+#      - ./volumes/shared:/mnt/web:delegated
+#      - ../:/var/www:delegated
+#    depends_on:
+#      - php
+#    ports:
+#      - "80:80"
+#      - "443:443"
+#    ulimits:
+#      memlock:
+#        soft: -1
+#        hard: -1
+#      nofile:
+#        soft: 65536
+#        hard: 65536
+
+#  mysql:
+#    image: mysql:8.0
+#    container_name: mysql
+#    restart: on-failure
+#    environment:
+#      - MYSQL_ROOT_PASSWORD=root
+#    ports:
+#      - 3309:3306
+#    volumes:
+#      - ./volumes/mysql:/var/lib/mysql:delegated
+#      - ./config/mysql/import:/docker-entrypoint-initdb.d:delegated
+#    logging:
+#      driver: "json-file"
+#      options:
+#        max-size: "100M"
+#        max-file: "3"
+#    ulimits:
+#      memlock:
+#        soft: -1
+#        hard: -1
+#      nofile:
+#        soft: 65536
+#        hard: 65536
+
+
+volumes:
+  certificates:
+    driver: local
