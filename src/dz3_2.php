@@ -69,8 +69,6 @@
        
     }
 
-    echo $averageSizeElem.PHP_EOL;
-
     fclose($dataStreamTo);
 }
 
