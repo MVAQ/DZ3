@@ -34,6 +34,11 @@
 
    
  }
+/**
+ * @param string $filePath, $arrayString
+ * 
+ * @return void
+ */
 
  function fileWriteAverageSizeElem( string $filePath, $arrayString){
 
