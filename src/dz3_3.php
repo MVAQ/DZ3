@@ -1,25 +1,27 @@
 <?php
 
 /**
- * task3.1
+ * task3.3
  * 
- * Пользуясь имеющимися наработками написать функцию, которая из исходных данных 
- * одной строки получает результаты fizzbuzz. Другая функция должна прочесть из файла
- * множество строк вида "3 5 18", т.е. исходных данных для fizzbuzz, 
- * и записать в другой файл полученные при помощи первой функции результаты по каждой строке.
+ *пока не готово
  * 
  */
 
 /**
  * @param string $filePath
  * 
- * @return array
+ * @return void
  */
 
 
  $nums;
+ 
 
- function fileRead( string $filePath): array{
+ function fileRead( string $filePath): void{
+
+ $fizz;
+ $buzz;
+ $end;
 
     $strimOfDataFrom = fopen($filePath, 'r');
 
@@ -28,74 +30,36 @@
         $str=fgets($strimOfDataFrom);
         
         $nums=explode(',', $str);
+       
+        $fizz = $nums[0];
+        $buzz = $nums[1];
+        $end = $nums[2];   
+        
         echo'___________________'.PHP_EOL;
-        var_dump($nums[1]);
-
+        echo $fizz.PHP_EOL;
+        echo $buzz.PHP_EOL;
+        echo $end.PHP_EOL;
 
     }
-      return $nums;
+
+      for ($i = 1; $i <= $end; $i++) {
+ 
+        if ($i % $fizz === 0) {
+            echo "F";
+        } else if ($i % $buzz === 0) {
+            echo "B";
+        } else {
+            echo $i;
+        }
     
+        echo " ";
+    }
+
+    echo PHP_EOL;
+
     fclose($strimOfDataFrom);
 
  }
  
 
  $arrayString=fileRead('fizzBuzzNum.txt');
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/*
- function fileRead( string $filePath): array{
-
-    $strimOfDataFrom = fopen($filePath, 'r');
-
-    while(!feof($strimOfDataFrom)){
-        
-        $str=fgets($strimOfDataFrom);
-        
-        $nums=explode(',', $str);
-        
-        return $nums;
-    }
-    
-   
-    return $nums;
-    fclose($strimOfDataFrom);
-
-   
- }
-
- function fileWrite( string $filePath, $arrayString){
-
- $dataStreamTo = fopen( $filePath, 'w+');
-
- echo '____________';
-
-
-    foreach ($arrayString as $key => $str) {
-        $data=$arrayString[$key];
-        echo $key;
-          if($key%2==0){
-            fputs($dataStreamTo, $data.PHP_EOL);
-          }
-    }
-    fclose($dataStreamTo);
-}
-*/
-
- //var_dump($arrayString);
- //fileWrite('writingTextFile.txt', $arrayString);
